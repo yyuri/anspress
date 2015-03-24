@@ -1,7 +1,12 @@
 <?php
 class AnsPress_Options_Page
 {
-	static public function add_option_groups() 
+	public function __construct()
+	{
+		add_action('admin_init', array($this, 'add_option_groups') );
+	}
+	
+	public function add_option_groups() 
 	{
 		$settings = ap_opt();
 		
@@ -165,6 +170,14 @@ class AnsPress_Options_Page
 				'html' => '<span class="ap-form-separator">' . __('Page titles') . '</span>',
 			) ,
 			array(
+				'name' => 'anspress_opt[show_title_in_question]',
+				'label' => __('Show question title', 'ap') ,
+				'desc' => __('Show question title in single question page.', 'ap') ,
+				'type' => 'checkbox',
+				'value' => $settings['show_title_in_question'],
+				'show_desc_tip' => false,
+			) ,
+			array(
 				'name' => 'anspress_opt[base_page_title]',
 				'label' => __('Base page title', 'ap') ,
 				'desc' => __('Main questions list page title', 'ap') ,
@@ -218,6 +231,14 @@ class AnsPress_Options_Page
 				'value' => $settings['disable_comments_on_question'],
 				'show_desc_tip' => false,
 			) ,
+			array(
+				'name' => 'anspress_opt[disable_voting_on_question]',
+				'label' => __('Disable voting', 'ap') ,
+				'desc' => __('Disable voting on questions.', 'ap') ,
+				'type' => 'checkbox',
+				'value' => $settings['disable_voting_on_question'],
+				'show_desc_tip' => false,
+			) ,
 		));
 		
 		// Register answer settings
@@ -252,6 +273,14 @@ class AnsPress_Options_Page
 				'desc' => __('Disable comments on answer.', 'ap') ,
 				'type' => 'checkbox',
 				'value' => $settings['disable_comments_on_answer'],
+				'show_desc_tip' => false,
+			) ,
+			array(
+				'name' => 'anspress_opt[disable_voting_on_answer]',
+				'label' => __('Disable voting', 'ap') ,
+				'desc' => __('Disable voting on answers.', 'ap') ,
+				'type' => 'checkbox',
+				'value' => $settings['disable_voting_on_answer'],
 				'show_desc_tip' => false,
 			) ,
 		));
@@ -378,6 +407,35 @@ class AnsPress_Options_Page
 					'publish' => __('Publish') ,
 					'moderate' => __('Moderate', 'profile')
 				) ,
+				'show_desc_tip' => false,
+			) ,
+			array(
+				'name' => '__sep',
+				'type' => 'custom',
+				'html' => '<span class="ap-form-separator">' . __('reCaptacha') . '</span>',
+			) ,
+			array(
+				'name' => 'anspress_opt[enable_recaptcha]',
+				'label' => __('Enable reCaptcha', 'ap') ,
+				'desc' => __('Use this for preventing spam posts.', 'ap') ,
+				'type' => 'checkbox',
+				'value' => $settings['enable_recaptcha'],
+				'show_desc_tip' => false,
+			) ,
+			array(
+				'name' => 'anspress_opt[recaptcha_site_key]',
+				'label' => __('Recaptcha site key', 'ap') ,
+				'desc' => __('Enter your site key, if you dont have it get it from here https://www.google.com/recaptcha/admin', 'ap') ,
+				'type' => 'text',
+				'value' => $settings['recaptcha_site_key'],
+				'show_desc_tip' => false,
+			) ,
+			array(
+				'name' => 'anspress_opt[recaptcha_secret_key]',
+				'label' => __('Recaptcha secret key', 'ap') ,
+				'desc' => __('Enter your secret key', 'ap') ,
+				'type' => 'text',
+				'value' => $settings['recaptcha_secret_key'],
 				'show_desc_tip' => false,
 			) ,
 		));
