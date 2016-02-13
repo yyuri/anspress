@@ -84,8 +84,8 @@ function ap_answer_form($question_id, $editing = false) {
 		);
 	}
 
-	if ( ap_show_captcha_to_user() ) {
-		// Show recpatcha if key exists and enabled.
+	if ( ap_show_captcha_to_user() && !is_user_logged_in()) {
+		// Show recpatcha if key exists and enabled and user is anonymous
 		if ( ap_opt( 'recaptcha_site_key' ) == '' ) {
 			$reCaptcha_html = '<div class="ap-notice red">'.__( 'reCaptach keys missing, please add keys', 'anspress-question-answer' ).'</div>';
 		} else {
